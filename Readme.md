@@ -1,29 +1,42 @@
-🧩 Project Setup: MERN Stack (MongoDB, Express, React, Node.js)
-✅ Prerequisites
-Make sure the following are installed globally:
+🚀 MERN Stack Project – Setup & Documentation
 
-Node.js (LTS)
+A complete MERN stack project using MongoDB, Express, React, Node.js along with AI, Video, Judge0, Cloudinary, Redis, and full authentication flow.
+
+🧩 Prerequisites
+
+Before running the project, ensure the following are installed:
+
+Node.js (LTS version)
+
 MongoDB Atlas account
-Redis (Optional if using hosted)
-Postman for API testing
+
+Redis (local or hosted)
+
+Postman – API testing
+
 VS Code
+
 Git
 
-🔧 Step-by-Step Installation
-1️⃣ Clone the Repository
+📥 1. Clone the Repository
 git clone <your-repo-url>
 cd <project-folder>
 
-2️⃣ Setup Backend
-📁 Navigate to Backend
+🔧 Backend Setup
+📁 2. Navigate to Backend
 cd backend
-📦 Install Node Modules
+
+📦 Install Backend Dependencies
 npm install
-⚙️ Create Environment File
-Create a .env file in the backend folder:
+
+⚙️ Create Environment Variables
+
+Create a .env file:
 
 touch .env
-Paste the following content (leave values empty or replace with your actual keys):
+
+
+Paste the following:
 
 PORT=
 DB_CONNECT_STRING=
@@ -34,40 +47,97 @@ GEMINI_KEY=
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-🔐 Need a secure JWT_KEY? Generate a 32-character secure random string using: random.org/passwords/?num=1&len=32&format=plain&rnd=new
 
-⚠️ Never push .env to GitHub. Make sure .gitignore includes .env.
+🔐 Need a secure JWT key?
 
-3️⃣ Setup Frontend
-📁 Navigate to Frontend
-cd ../frontend
-📦 Install Node Modules
-npm install
-▶️ Running the Project
+Generate a 32-character random string:
+https://random.org/passwords/?num=1&len=32&format=plain&rnd=new
+
 🚀 Start Backend
-Go to the backend folder and run:
-
 npm run dev
-Make sure nodemon is installed (npm install -g nodemon) or use plain node index.js
+
+
+Ensure nodemon is installed globally:
+npm install -g nodemon
+Or run using plain node:
+node index.js
+
+🎨 Frontend Setup
+📁 3. Navigate to Frontend
+cd ../frontend
+
+📦 Install Frontend Dependencies
+npm install
 
 🌐 Start Frontend
-In the frontend folder:
-
 npm run dev
 
-🧪 Testing
-Visit frontend: http://localhost:5173 (Vite) or http://localhost:3000 if CRA
-Test backend routes using Postman: http://localhost:3000/api
-📝 Final Structure
+Default URLs:
+
+Frontend (Vite): http://localhost:5173
+
+Backend: http://localhost:3000
+
+
+📌 API Endpoints — Full Description
+
+Below is a complete breakdown of all API endpoints grouped by modules.
+
+👤 1. User API
+Base URL: /api/user
+Method	Endpoint	Description	Access
+POST	/login	Authenticates a user and returns JWT token.	Public
+POST	/register	Registers a new user with basic credentials.	Public
+POST	/adminregister	Creates an admin account with elevated permissions.	Admin
+POST	/logout	Logs out the user by clearing authentication token/session.	Authenticated User
+DELETE	/deleteprofile	Deletes the user's own profile permanently.	Authenticated User
+GET	/checkauth	Verifies if the user’s token is valid and returns user details.	Authenticated User
+📝 2. Problem API
+Base URL: /api/problem
+🔐 Admin Endpoints
+Method	Endpoint	Description	Access
+POST	/create	Create a new coding problem (title, description, difficulty, testcases).	Admin
+GET	/	Retrieve all problems available in the platform.	Admin
+PUT	/update/:id	Update an existing problem using its ID.	Admin
+DELETE	/delete/:id	Delete a problem permanently using its ID.	Admin
+👨‍🎓 User Endpoints
+Method	Endpoint	Description	Access
+POST	/submit/:id	Submit solution for a specific problem. Code is judged using Judge0 API.	Authenticated User
+GET	/solved	Fetch all problems solved by the current user.	Authenticated User
+GET	/	Get all problems visible to users.	Public / Authenticated
+GET	/:id	Get a specific problem by its ID.	Public / Authenticated
+🧪 3. Submission API
+Base URL: /api/submission
+Method	Endpoint	Description	Access
+POST	/submit/:id	Submits the final answer for a problem. Stores result in DB.	Authenticated User
+POST	/run/:id	Runs code without submitting using Judge0 (for testing).	Authenticated User
+🤖 4. AI API
+Base URL: /api/ai
+Method	Endpoint	Description	Access
+POST	/chat	AI-based chat functionality powered by GEMINI API. Helps in problem hints/explanations.	Authenticated User
+🎥 5. Video API
+Base URL: /api/video
+Method	Endpoint	Description	Access
+POST	/create	Create a video-related resource (e.g., session, object, metadata).	Authenticated User
+POST	/save	Save video details to database (Cloudinary URL, metadata).	Authenticated User
+DELETE	/delete/:id	Delete a video from the system using its ID.	Authenticated User
+
+
+
+
+📁 Final Project Structure
 project-folder/
+│
 ├── backend/
 │   ├── .env
 │   ├── package.json
 │   └── src/
-|   └── ...
+│       └── ...
+│
 ├── frontend/
 │   ├── package.json
 │   └── src/
-|   └── index.html
-|   └── ...
-└── Readme.md
+│       ├── index.html
+│       └── ...
+│
+└── README.md
